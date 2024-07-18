@@ -6,7 +6,6 @@
 
 import time
 import sys
-import keyboard
 import os
 
 # =========================================================================
@@ -76,20 +75,22 @@ delayPrintLine(line, 0.01)
 print()
 
 
-def on_key(event):
-    if event.name not in ['1', '2', '3', 'e', 'q']:
-        print('You pressed ' + event.name + 'key')
+def Runtime():
+    user_input = input() 
+    # print(f'{user_input = }')
+
+    if user_input not in ['1', '2', '3', 'e', 'q']:
+        print('You pressed ' + user_input + 'key')
     else:
-        if event.name == '1':
+        if user_input == '1':
             os.system('python rc1_only_camera.py')
-        elif event.name == '2':
+        elif user_input == '2':
             os.system('python rc2_face_camera.py')
-        elif event.name == '3':
+        elif user_input == '3':
             os.system('python rc3_face_body_camera.py')
-        elif event.name == 'q':
+        elif user_input == 'q':
             sys.exit('exit')
         
 
-keyboard.on_press(on_key)
-keyboard.wait()
+Runtime()
 
