@@ -1,8 +1,7 @@
-from pynput import keyboard
-def on_press(key):
-    print(key)
+import keyboard
 
-    
-if __name__=="__main__":
-    with keyboard.Listener(on_press=on_press, on_release=on_release) as lsn:
-        lsn.join()
+def on_key(event):
+    print(event.name)
+
+keyboard.on_press(on_key)
+keyboard.wait()

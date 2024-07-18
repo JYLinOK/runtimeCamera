@@ -6,6 +6,9 @@
 
 import time
 import sys
+import keyboard
+import os
+
 
 def delayPrint(S, t=0.02):
     S_L = S.split('\n')
@@ -33,7 +36,7 @@ print(line)
 print(line)
 
 print()
-delayPrintLine('*=*=*=* RuntimeCamera *=*=*=*')
+delayPrintLine('==== RuntimeCamera ===', 0.01)
 print()
 
 Ta = 0.02
@@ -48,5 +51,23 @@ print()
 delayPrintLine('Press key e => exit', Ta)
 print()
 delayPrintLine(line, 0.01)
+print()
 
+
+def on_key(event):
+    if event.name not in ['1', '2', '3', 'e', 'q']:
+        print('You pressed ' + event.name + 'key')
+    else:
+        if event.name == '1':
+            os.system('python rc1_only_camera.py')
+        elif event.name == '2':
+            os.system('python rc2_face_camera.py')
+        elif event.name == '3':
+            os.system('python rc3_face_body_camera.py')
+        elif event.name == 'q':
+            sys.exit('exit')
+        
+
+keyboard.on_press(on_key)
+keyboard.wait()
 
