@@ -79,6 +79,9 @@ def Runtime():
     user_input = input() 
     # print(f'{user_input = }')
 
+    if user_input == None:
+        user_input = sys.stdin.read(1)
+
     if user_input not in ['1', '2', '3', 'e', 'q']:
         print('You pressed ' + user_input + 'key')
     else:
