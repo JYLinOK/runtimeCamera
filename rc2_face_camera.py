@@ -23,7 +23,7 @@ imshow_str = '24 HOURS MONITORING'
 frame_ID = 0
 
 show_DetectWin = False
-minNeighbors = 3
+minNeighbors = 6
 
 x_gap = 10
 y_gap = 10
