@@ -68,6 +68,9 @@ delayPrint(icon)
 print(line)
 print(line)
 
+# For Linux hardware event id
+keyboardEventID = 3
+
 # with open('./icon/icon2.txt', 'r') as F:  
 #     icon2 = F.read()  
 #     # print(icon)
@@ -136,19 +139,19 @@ def Runtime():
             from select import select
 
             def detectKey():
-                dev = InputDevice('/dev/input/event4')
+                dev = InputDevice('/dev/input/event' + str(keyboardEventID))
                 while True:
                     select([dev], [], [])
                     for event in dev.read():
                         # print(f'{event = }')
                         if event.code in [2, 79]:
-                            user_input == '1'
+                            user_input = '1'
                         elif event.code in [3, 80]:
-                            user_input == '2'
+                            user_input = '2'
                         elif event.code in [4, 81]:
-                            user_input == '3'
+                            user_input = '3'
                         elif event.code in [16]:
-                            user_input == 'q'
+                            user_input = 'q'
                         on_key_linux(user_input)
 
             detectKey()
