@@ -44,7 +44,7 @@ def delayPrintLine(L, t=0.05):
 line = '===================================================================================================='
 print(line)
 print(line)
-with open('./icon/icon.txt', 'r') as F:  
+with open('./icon/jinwei.txt', 'r') as F:  
     icon = F.read()  
     # print(icon)
 delayPrint(icon)
