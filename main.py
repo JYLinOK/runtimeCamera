@@ -32,7 +32,11 @@ delayPrint(icon)
 print(line)
 print(line)
 
-Ta = 0.03
+print()
+delayPrintLine('*=*=*=* RuntimeCamera *=*=*=*')
+print()
+
+Ta = 0.02
 delayPrintLine('Please Selete the functions:', Ta)
 print()
 delayPrintLine('Press key 1 => run rc1_only_camera.py', Ta)
