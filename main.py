@@ -9,6 +9,23 @@ import sys
 import keyboard
 import os
 
+# =========================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# =========================================================================
 
 def delayPrint(S, t=0.02):
     S_L = S.split('\n')
@@ -34,6 +51,11 @@ delayPrint(icon)
 # delayPrintLine(icon, 0.001)
 print(line)
 print(line)
+
+# with open('./icon/icon2.txt', 'r') as F:  
+#     icon2 = F.read()  
+#     # print(icon)
+# delayPrint(icon2)
 
 print()
 delayPrintLine('==== RuntimeCamera ===', 0.01)
