@@ -7,7 +7,7 @@ import os
 
 camera_ID = 0
 
-capture_wait_time = 1
+# capture_wait_time = 1
 
 camera = cv2.VideoCapture(0)
 
@@ -66,7 +66,8 @@ def detectFace(frame):
             # print(f'{img_title = }')
             # print(f'{img_dir = }')
 
-            cv2.waitKey(capture_wait_time * 1000)
+            # cv2.waitKey(capture_wait_time * 1000)
+            
             img_dir = './screenshot/' + img_dir + '/'
             if not os.path.exists(img_dir):
                 os.mkdir(img_dir)
