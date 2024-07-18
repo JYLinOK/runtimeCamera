@@ -7,6 +7,8 @@
 import time
 import sys
 import os
+import platform
+import keyboard
 
 # =========================================================================
 
@@ -33,11 +35,26 @@ def delayPrint(S, t=0.02):
         # print('\n')
         time.sleep(t)
 
+
 def delayPrintLine(L, t=0.05):
     for i in L:
         print(i, end=''),
         sys.stdout.flush()
         time.sleep(t)
+
+
+def detectSystem():
+    system = ''
+    if sys.platform.startswith('linux'):
+        system = 'linux'
+    elif sys.platform.startswith('win'):
+        system = 'windows'
+    elif sys.platform.startswith('darwin'):
+        system = 'macOS'
+    else:
+        system = 'other'
+    return system
+
 
 
 line = '===================================================================================================='
@@ -75,25 +92,44 @@ delayPrintLine(line, 0.01)
 print()
 
 
-def Runtime():
-    user_input = input() 
-    # print(f'{user_input = }')
-
-    if user_input == None:
-        user_input = sys.stdin.read(1)
-
-    if user_input not in ['1', '2', '3', 'e', 'q']:
-        print('You pressed ' + user_input + 'key')
+def on_key(event):
+    if event.name not in ['1', '2', '3', 'e', 'q']:
+        print('You pressed ' + event.name + 'key')
     else:
-        if user_input == '1':
+        if event.name == '1':
             os.system('python rc1_only_camera.py')
-        elif user_input == '2':
+        elif event.name == '2':
             os.system('python rc2_face_camera.py')
-        elif user_input == '3':
+        elif event.name == '3':
             os.system('python rc3_face_body_camera.py')
-        elif user_input == 'q':
+        elif event.name == 'q':
             sys.exit('exit')
+
+
+def Runtime():
+    system = detectSystem()
+    print(f'{system = }')
+
+    # user_input = input() 
+    # print(f'{user_input = }')
+    # if user_input == None:
+    #     user_input = sys.stdin.read(1)
+
+    if system == 'windows':
+        keyboard.on_press(on_key)
+        keyboard.wait()
+    else:
+        from evdev import InputDevice
+        from select import select
+
+        def detectKey():
+            dev = InputDevice('/dev/input/event4')
+            while True:
+                select([dev], [], [])
+                for event in dev.read():
+                    print(f'{event = }')
         
+        detectKey()
 
 Runtime()
 
