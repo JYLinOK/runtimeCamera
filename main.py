@@ -109,7 +109,8 @@ def on_key(event):
             sys.exit('exit')
 
 
-def on_key_linux(id_key):
+def on_key_linux():
+    id_key = input()
     if id_key not in ['1', '2', '3', 'e', 'q']:
         print('You pressed ' + id_key + 'key')
     else:
@@ -121,6 +122,9 @@ def on_key_linux(id_key):
             os.system('python rc3_face_body_camera.py')
         elif id_key == 'q':
             sys.exit('exit')
+        else:
+            print('Please select again')
+        on_key_linux()
 
 
 def Runtime():
@@ -132,41 +136,7 @@ def Runtime():
             keyboard.on_press(on_key)
             keyboard.wait()
     else:
-        user_input_0 = input('Do you want keyboard or input : 1-> keyboard, 2-> input:\n')
-
-        if user_input_0 == '1':
-            from evdev import InputDevice
-            from select import select
-
-            def detectKey():
-                dev = InputDevice('/dev/input/event' + str(keyboardEventID))
-                while True:
-                    select([dev], [], [])
-                    for event in dev.read():
-                        # print(f'{event = }')
-                        if event.code in [2, 79]:
-                            user_input = '1'
-                        elif event.code in [3, 80]:
-                            user_input = '2'
-                        elif event.code in [4, 81]:
-                            user_input = '3'
-                        elif event.code in [16]:
-                            user_input = 'q'
-                        on_key_linux(user_input)
-
-            detectKey()
-
-        elif user_input_0 == '2':
-            user_input = input() 
-            print('You input:' + user_input)
-            if user_input == None:
-                user_input = sys.stdin.read(1)
-                on_key_linux(user_input)
-
-        else: 
-            print('You input:' + user_input_0)
-            Runtime()
-
+        on_key_linux()
 
 Runtime()
 
