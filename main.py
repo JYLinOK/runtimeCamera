@@ -106,30 +106,64 @@ def on_key(event):
             sys.exit('exit')
 
 
+def on_key_linux(id_key):
+    if id_key not in ['1', '2', '3', 'e', 'q']:
+        print('You pressed ' + id_key + 'key')
+    else:
+        if id_key == '1':
+            os.system('python rc1_only_camera.py')
+        elif id_key == '2':
+            os.system('python rc2_face_camera.py')
+        elif id_key == '3':
+            os.system('python rc3_face_body_camera.py')
+        elif id_key == 'q':
+            sys.exit('exit')
+
+
 def Runtime():
     system = detectSystem()
     print(f'{system = }')
 
-    # user_input = input() 
-    # print(f'{user_input = }')
-    # if user_input == None:
-    #     user_input = sys.stdin.read(1)
-
+    
     if system == 'windows':
-        keyboard.on_press(on_key)
-        keyboard.wait()
+            keyboard.on_press(on_key)
+            keyboard.wait()
     else:
-        from evdev import InputDevice
-        from select import select
+        user_input_0 = input('Do you want keyboard or input : 1-> keyboard, 2-> input:\n')
 
-        def detectKey():
-            dev = InputDevice('/dev/input/event4')
-            while True:
-                select([dev], [], [])
-                for event in dev.read():
-                    print(f'{event = }')
-        
-        detectKey()
+        if user_input_0 == '1':
+            from evdev import InputDevice
+            from select import select
+
+            def detectKey():
+                dev = InputDevice('/dev/input/event4')
+                while True:
+                    select([dev], [], [])
+                    for event in dev.read():
+                        # print(f'{event = }')
+                        if event.code in [2, 79]:
+                            user_input == '1'
+                        elif event.code in [3, 80]:
+                            user_input == '2'
+                        elif event.code in [4, 81]:
+                            user_input == '3'
+                        elif event.code in [16]:
+                            user_input == 'q'
+                        on_key_linux(user_input)
+
+            detectKey()
+
+        elif user_input_0 == '2':
+            user_input = input() 
+            print('You input:' + user_input)
+            if user_input == None:
+                user_input = sys.stdin.read(1)
+                on_key_linux(user_input)
+
+        else: 
+            print('You input:' + user_input_0)
+            Runtime()
+
 
 Runtime()
 
